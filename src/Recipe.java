@@ -22,10 +22,10 @@ public class Recipe {
     public ArrayList<String> ingredients;
     public ArrayList<String> steps;
 
-    private String nameKey = "Name";
-    private String descKey = "Description";
-    private String ingredKey = "Ingredients";
-    private String stepsKey = "Steps";
+    private final static String nameKey = "Name";
+    private final static String descriptionKey = "Description";
+    private final static String ingredientsKey = "Ingredients";
+    private final static String stepsKey = "Steps";
 
     private static FileWriter file;
 
@@ -39,11 +39,11 @@ public class Recipe {
         JSONObject jsonObject = new JSONObject();
 
         jsonObject.put(nameKey, name);
-        jsonObject.put(descKey, description);
+        jsonObject.put(descriptionKey, description);
 
         JSONArray ingredientsJsonArray = new JSONArray();
         ingredientsJsonArray.addAll(ingredients);
-        jsonObject.put(ingredKey, ingredientsJsonArray);
+        jsonObject.put(ingredientsKey, ingredientsJsonArray);
 
         JSONArray stepsJsonArray = new JSONArray();
         stepsJsonArray.addAll(steps);
@@ -81,9 +81,9 @@ public class Recipe {
 
             JSONObject jsonObject =  (JSONObject) obj;
 
-            description = (String) jsonObject.get(descKey);
+            description = (String) jsonObject.get(descriptionKey);
 
-            JSONArray ingredientsJsonArray = (JSONArray) jsonObject.get(ingredKey);
+            JSONArray ingredientsJsonArray = (JSONArray) jsonObject.get(ingredientsKey);
             ingredients.clear();
             for (int i = 0; i < ingredientsJsonArray.size(); i++)
             {
