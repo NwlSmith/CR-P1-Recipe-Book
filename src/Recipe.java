@@ -34,6 +34,14 @@ public class Recipe {
         steps = new ArrayList<String>();
     }
 
+    // Used to construct a recipe directly from a JSON file.
+    public Recipe(String fileName)
+    {
+        ingredients = new ArrayList<String>();
+        steps = new ArrayList<String>();
+        LoadFromJSON(fileName);
+    }
+
     public void SaveToJSON()
     {
         JSONObject jsonObject = new JSONObject();
@@ -94,7 +102,7 @@ public class Recipe {
             steps.clear();
             for (int i = 0; i < stepsJsonArray.size(); i++)
             {
-                ingredients.add(stepsJsonArray.get(i).toString());
+                steps.add(stepsJsonArray.get(i).toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

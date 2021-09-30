@@ -7,6 +7,11 @@ public class Main {
 
         CreateTestRecipe();
 
+        Recipe spaghettiRecipe = new Recipe("Spaghetti and meatballs");
+        Recipe toastRecipe = new Recipe("Toast");
+        
+        spaghettiRecipe.PrintToConsole();
+        toastRecipe.PrintToConsole();
     }
 
     private static void CreateTestRecipe()
