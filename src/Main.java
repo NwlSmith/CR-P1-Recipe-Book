@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         setup();
         
+        
         for (Recipe r : recipes.getAllRecipes()) {
         	System.out.println(r.toString());
         }
