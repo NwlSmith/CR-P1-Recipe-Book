@@ -1,38 +1,40 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
+import java.io.File;
 
 public class Main {
+	
+	static RecipeBook recipes = new RecipeBook();
 
     public static void main(String[] args) {
-
-        CreateTestRecipe();
-
-        Recipe spaghettiRecipe = new Recipe("Spaghetti and meatballs");
-        Recipe toastRecipe = new Recipe("Toast");
+        setup();
         
-        spaghettiRecipe.PrintToConsole();
-        toastRecipe.PrintToConsole();
+        for (Recipe r : recipes.getAllRecipes()) {
+        	System.out.println(r.toString());
+        }
+
+        // *** main program ***
+    }
+
+    public static void setup() {
+    	File folder = new File("./savedrecipes/");
+    	File [] fileList = folder.listFiles();
+    	for (File file : fileList) {
+    		recipes.addRecipe(new Recipe(file.getName()));
+    	}
     }
 
     private static void CreateTestRecipe()
     {
-        Recipe recipe = new Recipe();
-
-        recipe.name = "NAME";
-        recipe.description = "DESCRIPTION";
-
         ArrayList<String> ingredients = new ArrayList<String>();
         ingredients.add("INGREDIENT 1");
         ingredients.add("INGREDIENT 2");
-        recipe.ingredients = ingredients;
-
+        
         ArrayList<String> steps = new ArrayList<String>();
         steps.add("STEP 1");
         steps.add("STEP 2");
-        recipe.steps = steps;
+        
+        Recipe newRecipe = new Recipe("NAME", "DESCRIPTION", ingredients, steps);
 
-        recipe.SaveToJSON();
-
-        recipe.PrintToConsole();
+        newRecipe.SaveToJSON();
     }
 }

@@ -1,12 +1,9 @@
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 /**
  * Class containing recipe data as well as methods for saving and loading.
@@ -17,8 +14,8 @@ import java.io.FileReader;
 
 public class Recipe {
 
-    public String name = "";
-    public String description = "";
+    public String name;
+    public String description;
     public ArrayList<String> ingredients;
     public ArrayList<String> steps;
 
@@ -28,15 +25,19 @@ public class Recipe {
     private final static String stepsKey = "Steps";
 
     private static FileWriter file;
-
-    public Recipe() {
-        ingredients = new ArrayList<String>();
-        steps = new ArrayList<String>();
+    private String fileName;
+    
+    public Recipe(String name, String description, ArrayList<String> ingredients, ArrayList<String> steps) {
+    	this.name = name;
+    	this.description = description;
+    	this.ingredients = ingredients;
+    	this.steps = steps;
     }
 
     // Used to construct a recipe directly from a JSON file.
     public Recipe(String fileName)
     {
+    	this.fileName = fileName;
         ingredients = new ArrayList<String>();
         steps = new ArrayList<String>();
         LoadFromJSON(fileName);
@@ -58,8 +59,7 @@ public class Recipe {
         jsonObject.put(stepsKey, stepsJsonArray);
 
         try {
-            String fileName = "savedrecipes/" + name + ".json";
-            file = new FileWriter(fileName);
+            file = new FileWriter(GetFileName());
             file.write(jsonObject.toJSONString());
             System.out.println("Successfully Copied JSON Object to File...");
             System.out.println("JSON Object: \n" + jsonObject);
@@ -82,12 +82,12 @@ public class Recipe {
     {
         JSONParser jsonParser = new JSONParser();
 
-        name = fileName;
-
         try {
             Object obj = jsonParser.parse(new FileReader(GetFileName()));
 
             JSONObject jsonObject =  (JSONObject) obj;
+            
+            name = (String) jsonObject.get(nameKey);
 
             description = (String) jsonObject.get(descriptionKey);
 
@@ -115,22 +115,21 @@ public class Recipe {
 
     private String GetFileName()
     {
-        return "savedrecipes/" + name + ".json";
+        return "savedrecipes/" + fileName;
+    }
+    
+    public String toString() {
+    	StringBuilder ingredSB = new StringBuilder();
+    	for (String in : ingredients) {
+    		ingredSB.append("* " + in + '\n');
+    	}
+    	
+    	StringBuilder stepsSB = new StringBuilder();
+    	for (int i = 1; i < steps.size(); i++) {
+    		stepsSB.append(i + ". "+ steps.get(i) + '\n');
+    	}
+    	
+        return String.format("Recipe Name: %s\nDescription: %s\n\nIngredients:\n%s\nSteps:\n%s", name, description, ingredSB.toString(), stepsSB.toString()) ;
     }
 
-    public void PrintToConsole()
-    {
-        System.out.println("Name:");
-        System.out.println(name);
-        System.out.println("Description:");
-        System.out.println(description);
-        System.out.println("Ingredients:");
-        for (String ingredient : ingredients) {
-            System.out.println(ingredient);
-        }
-        System.out.println("Instructions:");
-        for (String step : steps) {
-            System.out.println(step);
-        }
-    }
 }
