@@ -7,13 +7,18 @@ public class Main {
 
     public static void main(String[] args) {
         setup();
-        
+        /*
+        ArrayList<Recipe> search = recipes.find("meatballs");
+        for (Recipe r : search) {
+        	System.out.println(r.toString());
+        }
         
         for (Recipe r : recipes.getAllRecipes()) {
         	System.out.println(r.toString());
-        }
+        } 
+        */
 
-        // *** main program ***
+        /* main program */
     }
 
     public static void setup() {
