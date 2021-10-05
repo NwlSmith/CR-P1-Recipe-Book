@@ -18,7 +18,7 @@ class gui {
         // create buttons
         JButton create_Recipe_button = new JButton("Create a Recipe");
         JButton view_all_button = new JButton("View All Receipes");
-        JButton search_recipe_buttåon = new JButton("Search for a Recipe");
+        JButton search_recipe_button = new JButton("Search for a Recipe");
 
         create_Recipe_button.setSize(350, 50);
         create_Recipe_button.setLocation(52, 143);
@@ -34,19 +34,19 @@ class gui {
         panel.add(view_all_button);
         panel.add(search_recipe_button);
 
-        JLabel recipe_name = new JLabel("Recipe Name");
-        recipe_name.setLocation(52, 239);
-        JLabel description = new JLabel("Description");
-        description.setLocation(52, 313);
-        JLabel ingredient_list = new JLabel("Ingredient List");
-        ingredient_list.setLocation(52, 373);
-        JLabel instructions = new JLabel("Step by step instructions");
-        instructions.setLocation(52, 489);
+        // JLabel recipe_name = new JLabel("Recipe Name");
+        // recipe_name.setLocation(52, 239);
+        // JLabel description = new JLabel("Description");
+        // description.setLocation(52, 313);
+        // JLabel ingredient_list = new JLabel("Ingredient List");
+        // ingredient_list.setLocation(52, 373);
+        // JLabel instructions = new JLabel("Step by step instructions");
+        // instructions.setLocation(52, 489);
 
-        panel.add(recipe_name);
-        panel.add(description);
-        panel.add(ingredient_list);
-        panel.add(instructions);
+        // panel.add(recipe_name);
+        // panel.add(description);
+        // panel.add(ingredient_list);
+        // panel.add(instructions);
 
         // 1 ROW 3 COLUMNS
         // panel.setLayout(new GridLayout(0, 3));
