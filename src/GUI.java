@@ -50,8 +50,7 @@ class gui {
             recipeBook.addRecipe(new Recipe(file.getName()));
         }
 
-        RecipeSearchGUI recipeSearchGUI = new RecipeSearchGUI();
-        recipeSearchGUI.DisplayEntries(recipeBook.getAllRecipes());
+        RecipeSearchGUI recipeSearchGUI = new RecipeSearchGUI(recipeBook);
 
         //recipeSearchGUI.setSize(500, 300);
         //recipeSearchGUI.setLocation(400, 200);

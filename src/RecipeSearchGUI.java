@@ -1,49 +1,46 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class RecipeSearchGUI extends JPanel {
 
     private JPanel searchBar;
-    private JPanel containedPanel;
-    private JScrollPane scrollPane;
+    private ScrollableRecipeList scrollableRecipeList;
 
-    public RecipeSearchGUI()
+    private JTextField searchField;
+
+    private RecipeBook recipeBook;
+
+    public RecipeSearchGUI(RecipeBook newRecipeBook)
     {
         super();
 
+        recipeBook = newRecipeBook;
+
         setLayout(new BorderLayout());
-        //setMaximumSize(new Dimension(600, 1080));
         setBorder(BorderFactory.createEmptyBorder(0, 60, 0, 60));
 
         searchBar = new JPanel(new BorderLayout());
-        JTextField searchField = new JTextField(20);
+        searchField = new JTextField(20);
+        searchField.addActionListener( new ActionListener() { public void actionPerformed(ActionEvent e) { search(); } } );
         searchBar.add(searchField, BorderLayout.CENTER);
         JButton searchButton = new JButton("Search");
+        searchButton.addActionListener( new ActionListener() { public void actionPerformed(ActionEvent e) { search(); } } );
         searchBar.add(searchButton, BorderLayout.EAST);
 
-        containedPanel = new JPanel();
-        scrollPane = new JScrollPane(containedPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(600, 600));
-        //scrollPane = new JScrollPane(containedPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollableRecipeList = new ScrollableRecipeList();
 
         add(searchBar, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
-        // Show header
-        // Show search bar
+        add(scrollableRecipeList, BorderLayout.CENTER);
+
+        scrollableRecipeList.DisplayEntries(recipeBook.getAllRecipes());
     }
 
-    public void DisplayEntries(ArrayList<Recipe> recipesToDisplay)
+    private void search()
     {
-        //setBorder(BorderFactory.createLineBorder(Color.BLUE, 2, true));
-        //containedPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-        containedPanel.setLayout(new BoxLayout(containedPanel, BoxLayout.Y_AXIS));
-        for (int i = 0; i < recipesToDisplay.size(); i++)
-        {
-            RecipeSearchEntry recipeSearchEntry = new RecipeSearchEntry(recipesToDisplay.get(i));
-            containedPanel.add(recipeSearchEntry);
-        }
-
+        scrollableRecipeList.DisplayEntries(recipeBook.find(searchField.getText()));
+        revalidate();
     }
-
 }

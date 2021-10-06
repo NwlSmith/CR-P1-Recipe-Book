@@ -62,6 +62,7 @@ public class RecipeSearchEntry extends JPanel {
         add(instructions, infoConstraints);
 
         setMinimumSize(new Dimension(600, 200));
+        setMaximumSize(new Dimension(600, 300));
         setSize(600, 200);
 
         //setSize(500, 300);
