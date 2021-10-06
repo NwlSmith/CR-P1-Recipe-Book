@@ -13,12 +13,14 @@ public class RecipeSearchGUI extends JPanel {
         super();
 
         setLayout(new BorderLayout());
-        setMaximumSize(new Dimension(600, 1080));
+        //setMaximumSize(new Dimension(600, 1080));
         setBorder(BorderFactory.createEmptyBorder(0, 60, 0, 60));
 
-        searchBar = new JPanel();
-        JLabel searchPlaceholderText = new JLabel("Search");
-        searchBar.add(searchPlaceholderText);
+        searchBar = new JPanel(new BorderLayout());
+        JTextField searchField = new JTextField(20);
+        searchBar.add(searchField, BorderLayout.CENTER);
+        JButton searchButton = new JButton("Search");
+        searchBar.add(searchButton, BorderLayout.EAST);
 
         containedPanel = new JPanel();
         scrollPane = new JScrollPane(containedPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
