@@ -1,0 +1,15 @@
+{
+  "Name": "Toast",
+  "Steps": [
+    "Put the toast into the toaster",
+    "Push down on the lever (NOT TOO HARD)",
+    "Wait for it to pop up (BE PATIENT)",
+    "Take the toast out of the toaster with wooden tongs (NOT A FORK)",
+    "Spread butter on toast (Optional)"
+  ],
+  "Description": "It's toast",
+  "Ingredients": [
+    "Bread",
+    "Butter (Optional)"
+  ]
+}
