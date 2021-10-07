@@ -41,6 +41,7 @@ public class RecipeSearchGUI extends JPanel {
     private void search()
     {
         scrollableRecipeList.DisplayEntries(recipeBook.find(searchField.getText()));
-        revalidate();
+		revalidate();
+		repaint();
     }
 }
