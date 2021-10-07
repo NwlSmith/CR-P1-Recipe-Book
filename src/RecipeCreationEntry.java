@@ -10,7 +10,6 @@ public class RecipeCreationEntry extends JPanel {
 
     public RecipeCreationEntry(String name, String description, ArrayList<String> ingredients,
             ArrayList<String> steps) {
-        super();
         this.name = name;
         this.description = description;
         this.ingredients = ingredients;
