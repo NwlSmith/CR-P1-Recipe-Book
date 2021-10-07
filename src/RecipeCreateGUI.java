@@ -18,7 +18,7 @@ public class RecipeCreateGUI extends JPanel {
 
 		// JLabel jlabel = new JLabel("This is the Recipe Creation Panel");
 		// add(jlabel, BorderLayout.CENTER);
-		JButton saveRecipe = new JButton();
+		JButton saveRecipe = new JButton("Save Recipe");
 
 		recipeName = new JTextArea(1, 40);
 		description = new JTextArea(5, 40);
@@ -53,6 +53,10 @@ public class RecipeCreateGUI extends JPanel {
 
 		gbc.gridwidth = 2;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
+
+		gbc.gridx = 0;
+		gbc.gridy = 32;
+		add(saveRecipe, gbc);
 
 		// recipeNameInput.addActionListener(new ActionListener() {
 		// public void actionPerformed(ActionEvent e) {
