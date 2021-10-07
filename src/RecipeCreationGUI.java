@@ -19,6 +19,6 @@ public class RecipeCreationGUI extends JPanel {
         JTextField ingredientListInput = new JTextField();
         JLabel instructions = new JLabel("Step-by-step Instructions");
         JTextField instructionsInput = new JTextField();
-
+        
     }
 }
