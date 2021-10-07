@@ -176,8 +176,13 @@ public class Runner {
 		String recipeIndex = "-1";
 		ArrayList<Recipe> results; 
 		boolean running = true;
+		boolean finding = true;
 		
 		while(running) {
+			running = true;
+			finding = true;
+			recipeIndex = "-1";
+			
 			System.out.println("Please enter your keywords to search by recipe name or back to go to the main menu:");
 			input = scanner.nextLine();
 			
@@ -187,16 +192,24 @@ public class Runner {
 			else {
 				results = recipes.find(input);
 				
-				System.out.println("\nPlease select a recipe from the ones below.");
-				// Print all the recipes
-				for(int i = 0; i < results.size(); i++) {
-					System.out.print(i+1);
-					System.out.println(". "+results.get(i).name);
+				while(finding) {
+					if(results.size() == 0)
+						System.out.println("Nothing found for that keyword");
+					else {
+						System.out.println("\nPlease select a recipe from the ones below.");
+						// Print all the recipes
+						for(int i = 0; i < results.size(); i++) {
+							System.out.print(i+1);
+							System.out.println(". "+results.get(i).name);
+						}
+						finding = false;
+					}
 				}
+				
 				
 				//Select a recipe
 				// Need to enter a valid number
-				while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > results.size()-1) {
+				while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > results.size()) {
 					System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back.");
 					recipeIndex = scanner.nextLine();
 					if(recipeIndex.toLowerCase().equals("back")) {
@@ -204,8 +217,11 @@ public class Runner {
 						break;
 					}
 				}
-				
-				ViewRecipe(results.get(Integer.parseInt(recipeIndex)));
+				if(recipeIndex.toLowerCase().equals("back")) {
+					running = false;
+				}
+				else
+					ViewRecipe(results.get(Integer.parseInt(recipeIndex)-1));
 			}
 			
 		}
