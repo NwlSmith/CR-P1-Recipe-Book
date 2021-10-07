@@ -30,8 +30,6 @@ public class Runner {
 				/* 1. Retrieve recipe
 				 * 2. Can read the entire recipe, description, ingredients, instructions
 				 * 3. Can step through the instructions one at a time*/
-				
-				// Retrieve recipe book. Display all of the recipes
 				RecipeExploration();
 				
 			}
@@ -82,6 +80,7 @@ public class Runner {
 			else
 				ingredients.add(ingredient);
 		}
+		running = true;
 		while(running) {
 			System.out.println("Enter your steps one at a type or type finish to complete this recipe.");
 			step = scanner.nextLine();
@@ -113,9 +112,9 @@ public class Runner {
 				System.out.println(". "+allRecipes.get(i).name);
 			}
 			
-			// Need to enter a valid number
+			// Need to enter a valid number loop
 			while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > allRecipes.size()) {
-				System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back to go to the main menu.");
+				System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back.");
 				recipeIndex = scanner.nextLine();
 				if(recipeIndex.toLowerCase().equals("back")) {
 					running = false;
@@ -123,7 +122,13 @@ public class Runner {
 				}
 			}
 			
-			ViewRecipe(allRecipes.get(Integer.parseInt(recipeIndex)));
+			// Should be a better way to do this instead of writing it twice
+			if(recipeIndex.toLowerCase().equals("back")) {
+				break;
+			}
+			else
+				ViewRecipe(allRecipes.get(Integer.parseInt(recipeIndex)-1));
+			running = false;
 		}
 	}
 	
@@ -155,10 +160,11 @@ public class Runner {
 		System.out.println("Enter “y” when you are ready for the next step: ");
 		for(int i = 0; i < recipe.steps.size(); i++) {
 			System.out.println(recipe.steps.get(i));
+			running = true;
 			while(running) {
 				input = scanner.nextLine();
 				// If they type y, it breaks out of loop onto next step
-				if(!(input.toLowerCase().equals("y")))
+				if((input.toLowerCase().equals("y")))
 					running = false;
 			}
 		}
@@ -167,7 +173,7 @@ public class Runner {
 	private static void RecipeSearch() {
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		String recipeIndex = "";
+		String recipeIndex = "-1";
 		ArrayList<Recipe> results; 
 		boolean running = true;
 		
@@ -181,16 +187,17 @@ public class Runner {
 			else {
 				results = recipes.find(input);
 				
-				System.out.println("Please select a recipe from the ones below.");
+				System.out.println("\nPlease select a recipe from the ones below.");
 				// Print all the recipes
 				for(int i = 0; i < results.size(); i++) {
-					System.out.println(results.get(i));
+					System.out.print(i+1);
+					System.out.println(". "+results.get(i).name);
 				}
 				
 				//Select a recipe
 				// Need to enter a valid number
-				while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > results.size()) {
-					System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back to go to the main menu.");
+				while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > results.size()-1) {
+					System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back.");
 					recipeIndex = scanner.nextLine();
 					if(recipeIndex.toLowerCase().equals("back")) {
 						running = false;
