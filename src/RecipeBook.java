@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 class RecipeBook {
 
@@ -6,6 +6,8 @@ class RecipeBook {
 
     public RecipeBook() {
         recipes = new ArrayList<Recipe>();
+     
+
     }
 
     public int getNumOfRecipes() {
@@ -17,8 +19,8 @@ class RecipeBook {
     }
 
     public ArrayList<Recipe> find(String recipeName) {
-    	ArrayList<Recipe> searchResults = new ArrayList<>();
-    	
+        ArrayList<Recipe> searchResults = new ArrayList<>();
+        
         for (int i = 0; i < getNumOfRecipes(); i++) {
             Recipe currRecipe = recipes.get(i);
             String lcRecipe = currRecipe.name.toLowerCase();
@@ -32,9 +34,9 @@ class RecipeBook {
                 String[] query = lcQuery.split(" ");
                 
                 for (String word : query) {
-                	if (lcRecipe.contains(word)) {
+                    if (lcRecipe.contains(word)) {
                         searchResults.add(currRecipe);
-                	}
+                    }
                 }
             }
 
