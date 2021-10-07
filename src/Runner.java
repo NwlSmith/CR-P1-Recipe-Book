@@ -99,67 +99,80 @@ public class Runner {
 		// View all of the recipes
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		ArrayList<Recipe> results; 
+		String recipeIndex = "-1";
+		ArrayList<Recipe> allRecipes;
+		ArrayList<Recipe> foundRecipes;
 		boolean running = true;
 		
+		System.out.println();
 		while(running) {
-			System.out.println("Please select a recipe from the ones below or type back to go to the main menu.");
 			// Print all the recipes
-			for(int i = 0; i < results.size(); i++) {
-				System.out.println(results.get(i));
+			allRecipes = recipes.getAllRecipes();
+			for(int i = 0; i < allRecipes.size(); i++) {
+				System.out.print(i+1);
+				System.out.println(". "+allRecipes.get(i).name);
 			}
-			input = scanner.nextLine();
 			
-			if(input.toLowerCase().equals("back")) {
-				running = false;
+			// Need to enter a valid number
+			while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > allRecipes.size()) {
+				System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back to go to the main menu.");
+				recipeIndex = scanner.nextLine();
+				if(recipeIndex.toLowerCase().equals("back")) {
+					running = false;
+					break;
+				}
 			}
-			else {
-				results = recipes.find(input);
-				
-				
-				
-				
-				System.out.println("1 for entire recipe, 2 for step-by-step");
-				input = scanner.nextLine();
-				if(Integer.parseInt(input) == 1)
-					ViewRecipe();
-				else if(Integer.parseInt(input) == 2)
-					StepByStep();
-				else
-					System.out.println("Not a valid answer");
-			}
-			System.out.println("\nPlease pick a recipe out of the ones below or type back to go back.");
-			// Code to retrieve the recipes
-			System.out.println("1. Lorem ipsum dolor sit amet, consectetur adipiscing elit,");
-			System.out.println("2. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua");
-			System.out.println("3. Ut enim ad minim veniam");
-			System.out.println("");
+			
+			ViewRecipe(allRecipes.get(Integer.parseInt(recipeIndex)));
 		}
 	}
 	
-	private static void ViewRecipe() {
-		System.out.println("Recipe Name: ");
-		System.out.println("Description: ");
-		System.out.println("Ingredient List: ");
-		System.out.println("Step-by-step Instructions:");
+	private static void ViewRecipe(Recipe recipe) {
+		Scanner scanner = new Scanner(System.in);
+		String input;
+		boolean running = true;
+		while(running) {
+			System.out.println("1 for entire recipe, 2 for step-by-step");
+			input = scanner.nextLine();
+			if(Integer.parseInt(input) == 1) {
+				System.out.println(recipe);
+				running = false;
+			}
+			else if(Integer.parseInt(input) == 2) {
+				StepByStep(recipe);
+				running = false;
+			}				
+			else
+				System.out.println("Not a valid answer");
+		}
+		
 	}
 	
-	private static void StepByStep() {
-		int length = 10;
-		
-		for(int i = 0; i < length; i++) {
-			System.out.println(i);
+	private static void StepByStep(Recipe recipe) {
+		Scanner scanner = new Scanner(System.in);
+		String input;
+		boolean running = true;
+		System.out.println("Enter “y” when you are ready for the next step: ");
+		for(int i = 0; i < recipe.steps.size(); i++) {
+			System.out.println(recipe.steps.get(i));
+			while(running) {
+				input = scanner.nextLine();
+				// If they type y, it breaks out of loop onto next step
+				if(!(input.toLowerCase().equals("y")))
+					running = false;
+			}
 		}
 	}
 	
 	private static void RecipeSearch() {
 		Scanner scanner = new Scanner(System.in);
 		String input;
+		String recipeIndex = "";
 		ArrayList<Recipe> results; 
 		boolean running = true;
 		
 		while(running) {
-			System.out.println("Please type the recipe name or back to go back to the main menu.");
+			System.out.println("Please enter your keywords to search by recipe name or back to go to the main menu:");
 			input = scanner.nextLine();
 			
 			if(input.toLowerCase().equals("back")) {
@@ -174,18 +187,19 @@ public class Runner {
 					System.out.println(results.get(i));
 				}
 				
+				//Select a recipe
+				// Need to enter a valid number
+				while(Integer.parseInt(recipeIndex) <= 0 || Integer.parseInt(recipeIndex) > results.size()) {
+					System.out.println("\nPlease enter a valid number of a recipe from the ones above or type back to go to the main menu.");
+					recipeIndex = scanner.nextLine();
+					if(recipeIndex.toLowerCase().equals("back")) {
+						running = false;
+						break;
+					}
+				}
 				
-				System.out.println("1 for entire recipe, 2 for step-by-step");
-				input = scanner.nextLine();
-				if(Integer.parseInt(input) == 1)
-					ViewRecipe();
-				else if(Integer.parseInt(input) == 2)
-					StepByStep();
-				else
-					System.out.println("Not a valid answer");
+				ViewRecipe(results.get(Integer.parseInt(recipeIndex)));
 			}
-			System.out.println("\nPlease pick a recipe out of the ones below or type back to go back.");
-			// Code to retrieve the recipes
 			
 		}
 	}
