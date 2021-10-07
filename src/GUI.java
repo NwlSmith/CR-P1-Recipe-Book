@@ -6,8 +6,15 @@ import javax.swing.*;
 import java.awt.GridLayout;
 import java.io.File;
 
-class gui {
-    public static void main(String args[]) {
+class GUI {
+	
+	RecipeBook recipes;
+	
+	public GUI(RecipeBook recipes) {
+		this.recipes = recipes;
+	}
+	
+    public void renderInterface() {
         JFrame frame = new JFrame("Recipe book");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1152, 782);
@@ -42,15 +49,7 @@ class gui {
         frame.add(topPanel, BorderLayout.NORTH);
 
 
-        RecipeBook recipeBook = new RecipeBook();
-
-        File folder = new File("./savedrecipes/");
-        File [] fileList = folder.listFiles();
-        for (File file : fileList) {
-            recipeBook.addRecipe(new Recipe(file.getName()));
-        }
-
-        RecipeSearchGUI recipeSearchGUI = new RecipeSearchGUI(recipeBook);
+        RecipeSearchGUI recipeSearchGUI = new RecipeSearchGUI(recipes);
 
         //recipeSearchGUI.setSize(500, 300);
         //recipeSearchGUI.setLocation(400, 200);

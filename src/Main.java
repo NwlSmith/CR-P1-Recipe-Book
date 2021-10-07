@@ -1,4 +1,5 @@
 import java.util.*;
+import java.awt.BorderLayout;
 import java.io.File;
 
 public class Main {
@@ -6,22 +7,16 @@ public class Main {
 	static RecipeBook recipes = new RecipeBook();
 
     public static void main(String[] args) {
-        setup();
-        /*
-        ArrayList<Recipe> search = recipes.find("meatballs");
-        for (Recipe r : search) {
-        	System.out.println(r.toString());
-        }
-        
-        for (Recipe r : recipes.getAllRecipes()) {
-        	System.out.println(r.toString());
-        } 
-        */
-
+    	populateRecipeBook(); 
+    	
         /* main program */
+    	
+    	GUI uiWindow = new GUI(recipes);
+    	uiWindow.renderInterface();
+        
     }
 
-    public static void setup() {
+    public static void populateRecipeBook() {
     	File folder = new File("./savedrecipes/");
     	File [] fileList = folder.listFiles();
     	for (File file : fileList) {
