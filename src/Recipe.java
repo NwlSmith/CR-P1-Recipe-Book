@@ -1,5 +1,9 @@
-import java.io.*;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -27,17 +31,18 @@ public class Recipe {
     private static FileWriter file;
     private String fileName;
     
-    public Recipe(String name, String description, ArrayList<String> ingredients, ArrayList<String> steps) {
-    	this.name = name;
-    	this.description = description;
-    	this.ingredients = ingredients;
-    	this.steps = steps;
+    public Recipe(String fileName, String name, String description, ArrayList<String> ingredients, ArrayList<String> steps) {
+        this.fileName = fileName;
+        this.name = name;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.steps = steps;
     }
 
     // Used to construct a recipe directly from a JSON file.
     public Recipe(String fileName)
     {
-    	this.fileName = fileName;
+        this.fileName = fileName;
         ingredients = new ArrayList<String>();
         steps = new ArrayList<String>();
         LoadFromJSON(fileName);
@@ -104,6 +109,7 @@ public class Recipe {
             {
                 steps.add(stepsJsonArray.get(i).toString());
             }
+      
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -119,16 +125,16 @@ public class Recipe {
     }
     
     public String toString() {
-    	StringBuilder ingredSB = new StringBuilder();
-    	for (String in : ingredients) {
-    		ingredSB.append("* " + in + '\n');
-    	}
-    	
-    	StringBuilder stepsSB = new StringBuilder();
-    	for (int i = 1; i < steps.size(); i++) {
-    		stepsSB.append(i + ". "+ steps.get(i) + '\n');
-    	}
-    	
+        StringBuilder ingredSB = new StringBuilder();
+        for (String in : ingredients) {
+            ingredSB.append("* " + in + '\n');
+        }
+        
+        StringBuilder stepsSB = new StringBuilder();
+        for (int i = 1; i < steps.size(); i++) {
+            stepsSB.append(i + ". "+ steps.get(i) + '\n');
+        }
+        
         return String.format("Recipe Name: %s\nDescription: %s\n\nIngredients:\n%s\nSteps:\n%s", name, description, ingredSB.toString(), stepsSB.toString()) ;
     }
 
