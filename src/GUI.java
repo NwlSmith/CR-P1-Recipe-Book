@@ -14,7 +14,7 @@ class GUI {
 	}
 	
     public void renderInterface() {
-        JFrame frame = new JFrame("Recipe book");
+        final JFrame frame = new JFrame("Recipe book");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1152, 782);
 
@@ -34,9 +34,9 @@ class GUI {
         frame.add(topPanel, BorderLayout.NORTH);
         
         
-        JPanel createRecipes = new RecipeCreateGUI(recipes);
-        JPanel viewAllRecipes = new RecipeViewAll(recipes);
-        JPanel searchRecipes = new RecipeSearchGUI(recipes);
+        final JPanel createRecipes = new RecipeCreateGUI(recipes);
+        final JPanel viewAllRecipes = new RecipeViewAll(recipes);
+        final JPanel searchRecipes = new RecipeSearchGUI(recipes);
         
         create_Recipe_button.addActionListener( new ActionListener() {
         	public void actionPerformed(ActionEvent e) {

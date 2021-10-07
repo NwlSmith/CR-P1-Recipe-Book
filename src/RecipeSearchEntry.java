@@ -1,5 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class RecipeSearchEntry extends JPanel {
 
@@ -9,6 +14,7 @@ public class RecipeSearchEntry extends JPanel {
         super();
         recipe = newRecipe;
         SetupEntry();
+        
     }
 
     private void SetupEntry()
@@ -70,6 +76,14 @@ public class RecipeSearchEntry extends JPanel {
 
         // Format sizing
         // Format location?
+        
+        this.addMouseListener(new MouseAdapter(){
+        	public void mouseClicked (MouseEvent event) {
+        		DetailsGUI detailsWindow = new DetailsGUI(recipe);
+        		detailsWindow.renderInterface();
+        	}
+        });
+        
     }
 
     private JTextArea FormatName()
