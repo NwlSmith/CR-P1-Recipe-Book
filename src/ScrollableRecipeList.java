@@ -15,7 +15,6 @@ public class ScrollableRecipeList extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-
     public void DisplayEntries(ArrayList<Recipe> recipesToDisplay)
     {
         containedPanel.setLayout(new BoxLayout(containedPanel, BoxLayout.Y_AXIS));

@@ -8,6 +8,7 @@ public class StepByStepGUI extends JPanel {
 
 	public StepByStepGUI(Recipe recipe) {
         setLayout(new GridBagLayout());
+        setBackground(Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         GridBagConstraints listGbc = new GridBagConstraints();
@@ -21,6 +22,7 @@ public class StepByStepGUI extends JPanel {
         add(recipeName, gbc);
 
         JPanel listContent = new JPanel();
+        listContent.setBackground(Color.WHITE);
         listContent.setLayout(new GridBagLayout());
 
         gbc.anchor = GridBagConstraints.CENTER;

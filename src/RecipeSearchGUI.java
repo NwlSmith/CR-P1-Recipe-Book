@@ -17,11 +17,11 @@ public class RecipeSearchGUI extends JPanel {
         super();
 
         recipeBook = newRecipeBook;
-
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(0, 60, 0, 60));
 
         searchBar = new JPanel(new BorderLayout());
+        searchBar.setBackground(Color.WHITE);
         searchField = new JTextField(20);
         searchField.addActionListener( new ActionListener() { public void actionPerformed(ActionEvent e) { search(); } } );
         searchBar.add(searchField, BorderLayout.CENTER);
@@ -30,6 +30,7 @@ public class RecipeSearchGUI extends JPanel {
         searchBar.add(searchButton, BorderLayout.EAST);
 
         scrollableRecipeList = new ScrollableRecipeList();
+        scrollableRecipeList.setBackground(Color.WHITE);
 
         add(searchBar, BorderLayout.NORTH);
         add(scrollableRecipeList, BorderLayout.CENTER);

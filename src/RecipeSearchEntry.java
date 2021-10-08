@@ -20,6 +20,7 @@ public class RecipeSearchEntry extends JPanel {
     {
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         setLayout(new GridBagLayout());
+        setBackground(Color.WHITE);
 
         JLabel nameLabel = new JLabel("Recipe Name");
         JLabel descriptionLabel = new JLabel("Description");

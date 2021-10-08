@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,9 +18,9 @@ public class DetailsGUI {
 		this.recipe = recipe;
 		
 		frame = new JFrame("Recipe Details");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1152, 782);
-        
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 		fullRecipeGUI = new RecipeSearchEntry(recipe, false);
 		stepByStepGUI = new StepByStepGUI(recipe);
 	}
@@ -28,12 +29,14 @@ public class DetailsGUI {
         
 
         JPanel panel = new JPanel(new BorderLayout());
+		panel.setBackground(Color.WHITE);
 
         // create buttons
         JButton entire_button = new JButton("View Entire Recipe");
         JButton step_by_step_button = new JButton("Follow Step-by-step Guide");
 
         JPanel topPanel = new JPanel(new BorderLayout());
+		topPanel.setBackground(Color.WHITE);
 
         topPanel.add(entire_button, BorderLayout.WEST);
         topPanel.add(step_by_step_button, BorderLayout.EAST);
