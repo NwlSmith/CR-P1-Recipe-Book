@@ -1,69 +1,60 @@
-import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class StepByStepGUI extends JPanel {
-	
-	Recipe recipe;
-	JFrame frame;
-	int currentIndex;
-	
-	
+public class StepByStepGUI extends JPanel {	
+    private int currInstruction;
+
 	public StepByStepGUI(Recipe recipe) {
-		this.recipe = recipe;
-		
-		this.frame = new JFrame("Recipe Detail");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(1152, 782);
-        this.currentIndex = 0;
-	}
-	
-    public void renderInterface() {
-        
+        setLayout(new GridBagLayout());
 
-        JPanel panel = new JPanel(new BorderLayout());
-        
-        JTextArea nameText = FormatName();
-        frame.add(nameText);
-       
-        this.addMouseListener(new MouseAdapter(){
-        	public void mouseClicked (MouseEvent event) {
-        		if (currentIndex < recipe.steps.size()) {
-        			JTextArea stepText = FormatInstructions();
-            		frame.add(stepText);
-        		}
+        GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints listGbc = new GridBagConstraints();
 
-        	}
+        gbc.gridx = listGbc.gridx = gbc.gridy = listGbc.gridy = 0;
+        gbc.weightx = gbc.weighty = listGbc.weightx = listGbc.weighty = 1;
+        listGbc.insets = new Insets(10, 0, 10, 0);
+
+        JLabel recipeName = new JLabel(recipe.name);
+        gbc.anchor = GridBagConstraints.NORTH;
+        add(recipeName, gbc);
+
+        JPanel listContent = new JPanel();
+        listContent.setLayout(new GridBagLayout());
+
+        gbc.anchor = GridBagConstraints.CENTER;
+        listGbc.anchor = GridBagConstraints.WEST;
+        add(listContent, gbc);
+
+        JButton nextButton = new JButton("Next");
+        gbc.anchor = GridBagConstraints.SOUTH;
+
+        int instructionCount = recipe.steps.size();
+
+        nextButton.addActionListener( new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                if (currInstruction < instructionCount) {
+                    listContent.add(new JLabel(String.format("%d. %s", currInstruction+1, recipe.steps.get(currInstruction))), listGbc);
+                    listGbc.gridy++;
+                    currInstruction++;
+
+                    if (currInstruction == instructionCount) {
+                        nextButton.setText("Start Over");
+                    }
+                }
+                else {
+                    currInstruction = 0;
+                    nextButton.setText("Next");
+                    listContent.removeAll();
+                }
+
+                revalidate();
+                repaint();
+            }
         });
 
-        panel.setLayout(null);
-        frame.setVisible(true);
-    }
-    
-    private JTextArea FormatName() {
-        JTextArea name = new JTextArea();
-        name.setText(recipe.name);
-        name.setEditable(false);
-        name.setLineWrap(true);
-        name.setOpaque(false);
-        return name;
-    }
-    
-    private JTextArea FormatInstructions() {
-        String instructionsString = new String();
-        String step = recipe.steps.get(currentIndex);
-        instructionsString += "• " + step + "\n";
+        add(nextButton, gbc);
 
-        JTextArea instructions = new JTextArea(recipe.steps.size(), 30);
-        instructions.setText(instructionsString);
-        instructions.setEditable(false);
-        instructions.setLineWrap(true);
-        instructions.setOpaque(false);
-        
-        currentIndex++;
-        return instructions;
-    }
+	}
 }
-
