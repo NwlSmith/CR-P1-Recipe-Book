@@ -1,20 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class RecipeSearchEntry extends JPanel {
 
     private Recipe recipe;
-    public RecipeSearchEntry(Recipe newRecipe)
+    private Boolean isClickable;
+
+    public RecipeSearchEntry(Recipe newRecipe, Boolean clickable)
     {
         super();
         recipe = newRecipe;
+        isClickable = clickable;
         SetupEntry();
-        
     }
 
     private void SetupEntry()
@@ -70,20 +69,15 @@ public class RecipeSearchEntry extends JPanel {
         setMinimumSize(new Dimension(600, 200));
         setMaximumSize(new Dimension(600, 300));
         setSize(600, 200);
-
-        //setSize(500, 300);
-        //setLocation(400, 200);
-
-        // Format sizing
-        // Format location?
         
-        this.addMouseListener(new MouseAdapter(){
-        	public void mouseClicked (MouseEvent event) {
-        		DetailsGUI detailsWindow = new DetailsGUI(recipe);
-        		detailsWindow.renderInterface();
-        	}
-        });
-        
+        if (isClickable) {
+            this.addMouseListener(new MouseAdapter(){
+                public void mouseClicked (MouseEvent event) {
+                    DetailsGUI detailsWindow = new DetailsGUI(recipe);
+                    detailsWindow.renderInterface();
+                }
+            });
+        }
     }
 
     private JTextArea FormatName()

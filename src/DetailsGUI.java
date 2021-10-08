@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,13 +16,12 @@ public class DetailsGUI {
 	public DetailsGUI(Recipe recipe) {
 		this.recipe = recipe;
 		
-		this.frame = new JFrame("Recipe Detail");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(1152, 782);
+		frame = new JFrame("Recipe Details");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(1152, 782);
         
-		this.fullRecipeGUI = new RecipeSearchEntry(recipe);
-		this.stepByStepGUI = new StepByStepGUI(recipe);
-		this.currentIndex = 0;
+		fullRecipeGUI = new RecipeSearchEntry(recipe, false);
+		stepByStepGUI = new StepByStepGUI(recipe);
 	}
 	
     public void renderInterface() {

@@ -9,10 +9,8 @@ public class Main {
     	populateRecipeBook(); 
     	
         /* main program */
-    	
     	GUI uiWindow = new GUI(recipes);
     	uiWindow.renderInterface();
-        
     }
 
     public static void populateRecipeBook() {

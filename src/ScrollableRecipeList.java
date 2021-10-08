@@ -22,7 +22,7 @@ public class ScrollableRecipeList extends JPanel {
         containedPanel.removeAll();
         for (int i = 0; i < recipesToDisplay.size(); i++)
         {
-            RecipeSearchEntry recipeSearchEntry = new RecipeSearchEntry(recipesToDisplay.get(i));
+            RecipeSearchEntry recipeSearchEntry = new RecipeSearchEntry(recipesToDisplay.get(i), true);
             containedPanel.add(recipeSearchEntry);
         }
 
