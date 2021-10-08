@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
+=======
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+>>>>>>> Revert "Made detailsGUI appear in the middle of the screen to prevent confusion."
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
