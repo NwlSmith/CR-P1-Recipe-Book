@@ -59,6 +59,9 @@ public class DetailsGUI {
 		mainPanel.add(navBar, gbc);
 		gbc.anchor = GridBagConstraints.CENTER;
 		mainPanel.add(fullRecipeGUI, gbc);
+
+		fullRecipeGUI.setPreferredSize(new Dimension(1050,400));
+		stepByStepGUI.setPreferredSize(new Dimension(1050,400));
         
         entire_button.addActionListener( new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
