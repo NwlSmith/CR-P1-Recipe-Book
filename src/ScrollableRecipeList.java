@@ -12,7 +12,7 @@ public class ScrollableRecipeList extends JPanel {
     {
         containedPanel = new JPanel();
         scrollPane = new JScrollPane(containedPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(1030, 650));
+        scrollPane.setPreferredSize(new Dimension(1030, 500));
         scrollPane.setBorder(null);
         gbc = new GridBagConstraints();
         add(scrollPane, BorderLayout.CENTER);
