@@ -60,28 +60,44 @@ public class DetailsGUI {
 		gbc.anchor = GridBagConstraints.CENTER;
 		mainPanel.add(fullRecipeGUI, gbc);
 
+		paintButton(entire_button, step_by_step_button);
+
 		fullRecipeGUI.setPreferredSize(new Dimension(1050,400));
 		stepByStepGUI.setPreferredSize(new Dimension(1050,400));
         
         entire_button.addActionListener( new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		mainPanel.remove(stepByStepGUI);
-        		mainPanel.add(fullRecipeGUI, gbc);
-				mainPanel.revalidate();
-        		mainPanel.repaint();
+				switchTabs(mainPanel, stepByStepGUI, fullRecipeGUI, gbc);
+				paintButton(entire_button, step_by_step_button);
         	}
         });
         
         step_by_step_button.addActionListener( new ActionListener() {
         	public void actionPerformed(ActionEvent e) {	
-        		mainPanel.remove(fullRecipeGUI);
-        		mainPanel.add(stepByStepGUI, gbc);
-        		mainPanel.revalidate();
-        		mainPanel.repaint();
+				switchTabs(mainPanel, fullRecipeGUI, stepByStepGUI, gbc);
+				paintButton(step_by_step_button, entire_button);
         	}
         });
 
 		frame.add(mainPanel);
         frame.setVisible(true);
     }
+
+	public void paintButton(JButton active, JButton nonActive) {
+		active.setBackground(Color.BLACK);
+		active.setForeground(Color.WHITE);
+		active.setOpaque(true);
+		active.setBorderPainted(false);
+		nonActive.setBorderPainted(true);
+		nonActive.setBackground(Color.WHITE);
+		nonActive.setForeground(Color.BLACK);
+		nonActive.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+	}
+
+	public void switchTabs(JPanel parent, JPanel current, JPanel next, GridBagConstraints c) {
+		parent.remove(current);
+		parent.add(next, c);
+		parent.revalidate();
+		parent.repaint();
+	}
 }
