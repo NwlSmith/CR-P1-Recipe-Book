@@ -26,6 +26,10 @@ public class RecipeSearchEntry extends JPanel {
         JLabel descriptionLabel = new JLabel("Description");
         JLabel ingredientsLabel = new JLabel("Ingredients List");
         JLabel instructionsLabel = new JLabel("Step-by-Step Instructions");
+        nameLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        descriptionLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        ingredientsLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        instructionsLabel.setFont(new Font("Roboto", Font.BOLD, 12));
 
         // Labels
         GridBagConstraints labelConstraints = new GridBagConstraints();
@@ -66,10 +70,6 @@ public class RecipeSearchEntry extends JPanel {
         add(ingredients, infoConstraints);
         infoConstraints.gridy++;
         add(instructions, infoConstraints);
-
-        setMinimumSize(new Dimension(600, 200));
-        setMaximumSize(new Dimension(600, 300));
-        setSize(600, 200);
         
         if (isClickable) {
             this.addMouseListener(new MouseAdapter(){
