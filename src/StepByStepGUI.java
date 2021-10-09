@@ -41,15 +41,13 @@ public class StepByStepGUI extends JPanel {
         gbc.anchor = GridBagConstraints.PAGE_END;
 
         int instructionCount = recipe.steps.size();
+        populateTextFields(listContent, listGbc, instructionCount);
 
         nextButton.addActionListener( new ActionListener() { 
             public void actionPerformed(ActionEvent e) {   
                 if (currInstruction < instructionCount) {
-                    JLabel newLabel = new JLabel(String.format("- %s", recipe.steps.get(currInstruction)));
-                    newLabel.setPreferredSize(new Dimension(1040, 20));
-                    newLabel.setBorder(new EmptyBorder(0,10,0,0));
-                    listContent.add(newLabel, listGbc);
-                    listGbc.gridy++;
+                    JLabel currLabel = (JLabel)listContent.getComponents()[currInstruction];
+                    currLabel.setText(String.format("- %s", recipe.steps.get(currInstruction)));
                     currInstruction++;
 
                     if (currInstruction == instructionCount) {
@@ -60,6 +58,7 @@ public class StepByStepGUI extends JPanel {
                     currInstruction = 0;
                     nextButton.setText("Next");
                     listContent.removeAll();
+                    populateTextFields(listContent, listGbc, instructionCount);
                 }
 
                 revalidate();
@@ -69,4 +68,16 @@ public class StepByStepGUI extends JPanel {
 
         add(nextButton, gbc);
 	}
+
+
+    public void populateTextFields(JPanel container, GridBagConstraints c, int numOfElems) {
+        c.gridy = 0;
+        for (int i = 0; i < numOfElems; i++) {
+            JLabel newLabel = new JLabel();
+            newLabel.setPreferredSize(new Dimension(1040, 20));
+            newLabel.setBorder(new EmptyBorder(0,10,0,0));
+            c.gridy++;
+            container.add(newLabel,c);
+        }
+    }
 }
