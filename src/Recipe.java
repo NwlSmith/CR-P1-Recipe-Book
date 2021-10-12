@@ -62,7 +62,7 @@ public class Recipe {
             file = new FileWriter(GetFileName());
             file.write(jsonObject.toJSONString());
             System.out.println("Successfully Copied JSON Object to File...");
-            System.out.println("JSON Object: \n" + jsonObject);
+            //System.out.println("JSON Object: \n" + jsonObject);
 
         } catch (IOException e) {
             e.printStackTrace();
