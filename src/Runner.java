@@ -92,6 +92,7 @@ public class Runner {
 		}
 		Recipe recipeInput = new Recipe(name, description, ingredients, steps);
 		recipes.addRecipe(recipeInput);
+		recipeInput.SaveToJSON();
 	}
 	
 	private static void RecipeExploration() {
