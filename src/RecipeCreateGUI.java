@@ -28,10 +28,14 @@ public class RecipeCreateGUI extends JPanel {
 		GridBagConstraints gridbc = new GridBagConstraints();
 		gridbc.gridx = gridbc.gridy = 0;
 
-		add(new JLabel("Recipe Name"));
-		add(new JLabel("Description"));
-		add(new JLabel("Ingredient List"));
-		add(new JLabel("Step-by-Step Instruction"));
+		add(new JLabel("Recipe Name"), gridbc);
+		gridbc.gridy++;
+		add(new JLabel("Description"), gridbc);
+		gridbc.gridy++;
+		add(new JLabel("Ingredient List"), gridbc);
+		gridbc.gridy++;
+		add(new JLabel("Step-by-step Instructions"), gridbc);
+		gridbc.gridy++;
 
 		add(new JTextArea(), gridbc);
 		add(new JTextArea(), gridbc);
