@@ -5,11 +5,26 @@ public class Main {
 	static RecipeBook recipes = new RecipeBook();
 
     public static void main(String[] args) {
-    	populateRecipeBook(); 
-    	
+    	populateRecipeBook();
+
         /* main program */
-    	GUI uiWindow = new GUI(recipes);
-    	uiWindow.renderInterface();
+        try {
+            String choice = args[0];
+            if (choice.equalsIgnoreCase("gui")) {
+                GUI uiWindow = new GUI(recipes);
+                uiWindow.renderInterface();
+            }
+            else if (choice.equalsIgnoreCase("cli")) {
+                Runner CLI = new Runner(recipes);
+                CLI.startCLI();
+            }
+            else {
+                System.out.println("Not a proper interface. Please add a valid arg 'gui' or 'cli'");
+            }
+        }
+        catch(Exception e) {
+            System.err.println("No interface choice provided. Try again.");
+        }
     }
 
     public static void populateRecipeBook() {
