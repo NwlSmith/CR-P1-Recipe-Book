@@ -19,7 +19,7 @@ public class Main {
                 CLI.startCLI();
             }
             else {
-                System.out.println("Not a proper interface. Please add a valid arg 'gui' or 'cli'");
+                System.out.println("Invalid interface type. Please add a valid argument 'gui' or 'cli'");
             }
         }
         catch(Exception e) {

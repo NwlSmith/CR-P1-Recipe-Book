@@ -71,7 +71,7 @@ public class Runner {
 		System.out.println("Enter a description for your recipe.");
 		description = scanner.nextLine();
 		while(running) {
-			System.out.println("Enter your ingredient or type next to move onto the steps.");
+			System.out.println("Enter your ingredient or type 'next' to move onto the steps.");
 			ingredient = scanner.nextLine();
 			if(ingredient.toLowerCase().equals("next")) {
 				running = false;
@@ -81,7 +81,7 @@ public class Runner {
 		}
 		running = true;
 		while(running) {
-			System.out.println("Enter your steps one at a type or type finish to complete this recipe.");
+			System.out.println("Enter your steps one at a type or type 'finish' to complete this recipe.");
 			step = scanner.nextLine();
 			if(step.toLowerCase().equals("finish")) {
 				running = false;
