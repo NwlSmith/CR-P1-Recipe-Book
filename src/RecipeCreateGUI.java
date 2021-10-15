@@ -75,6 +75,7 @@ public class RecipeCreateGUI extends JPanel {
 		add(instructions, gridbc);
 		instructions.setText("Add instructions here                              ");
 		instructions.setBorder(BorderFactory.createLineBorder(Color.black));
+		gridbc.gridy++;
 
 		gridbc.gridwidth = 2;
 		gridbc.fill = GridBagConstraints.HORIZONTAL;

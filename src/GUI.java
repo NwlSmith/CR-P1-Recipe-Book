@@ -81,7 +81,7 @@ class GUI {
         viewAllRecipes.setPreferredSize(new Dimension(1050, 500));
         searchRecipes.setPreferredSize(new Dimension(1150, 500));
 
-        createRecipes.setBackground(Color.RED);
+        createRecipes.setBackground(Color.WHITE);
         viewAllRecipes.setBackground(Color.WHITE);
         searchRecipes.setBackground(Color.WHITE);
 
