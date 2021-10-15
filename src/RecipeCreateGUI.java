@@ -38,8 +38,8 @@ public class RecipeCreateGUI extends JPanel {
 
 		// recipeSection.setPreferredSize(new Dimension(2000, 320));
 		JLabel title = new JLabel("Recipe Name");
-		title.setHorizontalAlignment(JLabel.LEFT);
-		title.setBorder(BorderFactory.createLineBorder(Color.black));
+		title.setHorizontalAlignment(SwingConstants.LEFT);
+		// title.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		add(title, gridbc);
 		gridbc.gridy++;
@@ -50,10 +50,24 @@ public class RecipeCreateGUI extends JPanel {
 		add(new JLabel("Step-by-step Instructions"), gridbc);
 		gridbc.gridy++;
 
-		add(new JTextArea(), gridbc);
-		add(new JTextArea(), gridbc);
-		add(new JTextArea(), gridbc);
-		add(new JTextArea(), gridbc);
+		recipeName = new JTextArea(1, 40);
+		description = new JTextArea(5, 40);
+		ingredientList = new JTextArea(4, 40);
+		instructions = new JTextArea(8, 40);
+
+		gridbc.gridx += 56;
+		gridbc.gridy = 0;
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+		add(recipeName, gridbc);
+		gridbc.gridy++;
+		add(description, gridbc);
+		gridbc.gridy++;
+		add(ingredientList, gridbc);
+		gridbc.gridy++;
+		add(instructions, gridbc);
+
+		gridbc.gridwidth = 2;
+		gridbc.fill = GridBagConstraints.HORIZONTAL;
 
 		add(recipeSection);
 
