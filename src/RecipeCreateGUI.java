@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicBorders;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,16 +20,28 @@ public class RecipeCreateGUI extends JPanel {
 
 	public RecipeCreateGUI(RecipeBook recipes) {
 		super();
+
 		this.recipes = recipes;
 
-		JPanel recipeSection = new JPanel();
 		setLayout(new GridBagLayout());
-		setBackground(Color.WHITE);
+		setBackground(Color.RED);
 
 		GridBagConstraints gridbc = new GridBagConstraints();
-		gridbc.gridx = gridbc.gridy = 0;
 
-		add(new JLabel("Recipe Name"), gridbc);
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+		gridbc.gridx = gridbc.gridy = 0;
+		gridbc.weighty = 1;
+
+		JPanel recipeSection = new JPanel();
+
+		gridbc.insets = new Insets(0, 8, 64, 8);
+
+		// recipeSection.setPreferredSize(new Dimension(2000, 320));
+		JLabel title = new JLabel("Recipe Name");
+		title.setHorizontalAlignment(JLabel.LEFT);
+		title.setBorder(BorderFactory.createLineBorder(Color.black));
+
+		add(title, gridbc);
 		gridbc.gridy++;
 		add(new JLabel("Description"), gridbc);
 		gridbc.gridy++;
@@ -43,6 +56,7 @@ public class RecipeCreateGUI extends JPanel {
 		add(new JTextArea(), gridbc);
 
 		add(recipeSection);
+
 	}
 	// private void populate() {
 	// int x;
