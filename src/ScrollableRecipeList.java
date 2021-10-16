@@ -29,8 +29,8 @@ public class ScrollableRecipeList extends JPanel {
 
         for (int i = 0; i < recipesToDisplay.size(); i++)
         {
-            RecipeSearchEntry recipeSearchEntry = new RecipeSearchEntry(recipesToDisplay.get(i), true);
-            recipeSearchEntry.setPreferredSize(new Dimension(1000, 300));
+            RecipeSearchEntry recipeSearchEntry = new RecipeSearchEntry(recipesToDisplay.get(i), true, false);
+            recipeSearchEntry.setPreferredSize(new Dimension(1000, 100));
             containedPanel.add(recipeSearchEntry, gbc);
             gbc.gridy++;
         }

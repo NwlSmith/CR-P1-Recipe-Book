@@ -7,12 +7,14 @@ public class RecipeSearchEntry extends JPanel {
 
     private Recipe recipe;
     private Boolean isClickable;
+    private Boolean shouldExpand;
 
-    public RecipeSearchEntry(Recipe newRecipe, Boolean clickable)
+    public RecipeSearchEntry(Recipe newRecipe, Boolean clickable, Boolean expand)
     {
         super();
         recipe = newRecipe;
         isClickable = clickable;
+        shouldExpand = expand;
         SetupEntry();
     }
 
@@ -43,10 +45,13 @@ public class RecipeSearchEntry extends JPanel {
         add(nameLabel, labelConstraints);
         labelConstraints.gridy++;
         add(descriptionLabel, labelConstraints);
-        labelConstraints.gridy++;
-        add(ingredientsLabel, labelConstraints);
-        labelConstraints.gridy++;
-        add(instructionsLabel, labelConstraints);
+
+        if (shouldExpand) {
+            labelConstraints.gridy++;
+            add(ingredientsLabel, labelConstraints);
+            labelConstraints.gridy++;
+            add(instructionsLabel, labelConstraints);
+        }
 
         // Info
         GridBagConstraints infoConstraints = new GridBagConstraints();
@@ -66,10 +71,13 @@ public class RecipeSearchEntry extends JPanel {
         add(name, infoConstraints);
         infoConstraints.gridy++;
         add(description, infoConstraints);
-        infoConstraints.gridy++;
-        add(ingredients, infoConstraints);
-        infoConstraints.gridy++;
-        add(instructions, infoConstraints);
+
+        if (shouldExpand) {
+            infoConstraints.gridy++;
+            add(ingredients, infoConstraints);
+            infoConstraints.gridy++;
+            add(instructions, infoConstraints);
+        }
         
         if (isClickable) {
             this.addMouseListener(new MouseAdapter(){
