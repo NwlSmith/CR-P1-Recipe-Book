@@ -1,89 +1,101 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicBorders;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.GridBagLayout;
+import javax.swing.border.Border;
 
 public class RecipeCreateGUI extends JPanel {
-	private RecipeBook recipes;
-
-	private JPanel recipeSection;
-	private JTextArea recipeName;
-	private JTextArea description;
-	private JTextArea ingredientList;
-	private JTextArea instructions;
 
 	public RecipeCreateGUI(RecipeBook recipes) {
-		super();
-
-		this.recipes = recipes;
-
 		setLayout(new GridBagLayout());
-
 		GridBagConstraints gridbc = new GridBagConstraints();
 
-		gridbc.anchor = GridBagConstraints.NORTHWEST;
 		gridbc.gridx = gridbc.gridy = 0;
-		gridbc.weighty = 1;
+        gridbc.weightx = gridbc.weighty = 1;
 
-		setBackground(Color.RED);
+		JLabel recipeName = new JLabel("Recipe Name");
+		JTextArea recipeInput = new JTextArea("Add Recipe Name");
+		
+		Border compound = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 2), BorderFactory.createEmptyBorder(5, 15, 0, 0));
 
-		gridbc.insets = new Insets(0, 8, 64, 8);
-
-		setPreferredSize(new Dimension(1050, 320));
-		JLabel title = new JLabel("Recipe Name");
-		title.setPreferredSize(new Dimension(750, 20));
-		title.setHorizontalAlignment(SwingConstants.LEFT);
-		title.setBorder(BorderFactory.createLineBorder(Color.black));
-
-		add(title, gridbc);
-		gridbc.gridy++;
-		add(new JLabel("Description"), gridbc);
-		gridbc.gridy++;
-		add(new JLabel("Ingredient List"), gridbc);
-		gridbc.gridy++;
-		add(new JLabel("Step-by-step Instructions"), gridbc);
-		gridbc.gridy++;
-
-		recipeName = new JTextArea(1, 40);
-		description = new JTextArea(5, 40);
-		ingredientList = new JTextArea(4, 40);
-		instructions = new JTextArea(8, 40);
-
-		gridbc.gridx += 56;
-		gridbc.gridy = 0;
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
+		recipeName.setPreferredSize(new Dimension(200,30));
+		recipeName.setFont(new Font("Roboto", Font.BOLD, 16));
 		add(recipeName, gridbc);
-		recipeName.setBorder(BorderFactory.createLineBorder(Color.black));
 
-		recipeName.setText("Add Recipe Name here                  ");
+		gridbc.gridx++;
+		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		recipeInput.setBorder(compound);
+		recipeInput.setPreferredSize(new Dimension(850,30));
+		recipeInput.setFont(new Font("Roboto", Font.PLAIN, 14));
+		add(recipeInput, gridbc);
+
+		gridbc.gridx--;
 		gridbc.gridy++;
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+
+		JLabel description = new JLabel("Description");
+		JTextArea descriptionInput = new JTextArea("Add a description of your recipe");
+		
+		description.setPreferredSize(new Dimension(200,30));
+		description.setFont(new Font("Roboto", Font.BOLD, 16));
 		add(description, gridbc);
-		description.setText("Add a description of your recipe here      ");
-		description.setBorder(BorderFactory.createLineBorder(Color.black));
+
+		gridbc.gridx++;
+		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		descriptionInput.setBorder(compound);
+		descriptionInput.setPreferredSize(new Dimension(850,30));
+		descriptionInput.setFont(new Font("Roboto", Font.PLAIN, 14));
+		add(descriptionInput, gridbc);
+
+		gridbc.gridx--;
+		gridbc.gridy++;
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+
+		JLabel ingredient = new JLabel("Ingredient List");
+		JTextArea ingredientInput = new JTextArea("Add a list of comma-separated ingredients");
+		
+		ingredient.setPreferredSize(new Dimension(200,30));
+		ingredient.setFont(new Font("Roboto", Font.BOLD, 16));
+		add(ingredient, gridbc);
+
+		gridbc.gridx++;
+		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		ingredientInput.setBorder(compound);
+		ingredientInput.setPreferredSize(new Dimension(850,80));
+		ingredientInput.setFont(new Font("Roboto", Font.PLAIN, 14));
+		add(ingredientInput, gridbc);
+
+		gridbc.gridx--;
+		gridbc.gridy++;
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+
+		JTextArea steps = new JTextArea("Step-by-step Instructions");
+		JTextArea stepsInput = new JTextArea("Add a list of line-separated instructions");
+		
+		steps.setPreferredSize(new Dimension(200,50));
+		steps.setFont(new Font("Roboto", Font.BOLD, 16));
+		steps.setWrapStyleWord(true);
+		steps.setLineWrap(true);
+		steps.setEditable(false);
+		steps.setFocusable(false);
+		add(steps, gridbc);
+
+		gridbc.gridx++;
+		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		stepsInput.setBorder(compound);
+		stepsInput.setPreferredSize(new Dimension(850,150));
+		stepsInput.setFont(new Font("Roboto", Font.PLAIN, 14));
+		add(stepsInput, gridbc);
 
 		gridbc.gridy++;
-		add(ingredientList, gridbc);
-		ingredientList.setText("Add a list of ingredients here   ");
-		ingredientList.setBorder(BorderFactory.createLineBorder(Color.black));
-		gridbc.gridy++;
-		add(instructions, gridbc);
-		instructions.setText("Add instructions here                              ");
-		instructions.setBorder(BorderFactory.createLineBorder(Color.black));
-		gridbc.gridy++;
+		JButton saveButton = new JButton("Save Recipe");
+		saveButton.setPreferredSize(new Dimension(180,40));
+        saveButton.setBorderPainted(false);
+        saveButton.setOpaque(true);
+        saveButton.setBackground(Color.BLACK);
+        saveButton.setForeground(Color.WHITE);
+		saveButton.setFont(new Font("Roboto", Font.BOLD, 18));
+		add(saveButton, gridbc);
 
-		gridbc.gridwidth = 2;
-		gridbc.fill = GridBagConstraints.HORIZONTAL;
-		JButton saveRecipe = new JButton("Save Recipe");
-
-		add(saveRecipe, gridbc);
 	}
-	// private void populate() {
-	// int x;
-	// }
+
 }
