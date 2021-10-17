@@ -88,6 +88,7 @@ class GUI {
 
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.VERTICAL;
 
         create_recipe.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
