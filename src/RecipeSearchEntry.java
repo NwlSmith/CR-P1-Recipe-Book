@@ -20,7 +20,7 @@ public class RecipeSearchEntry extends JPanel {
 
     private void SetupEntry()
     {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, false));
         setLayout(new GridBagLayout());
         setBackground(Color.WHITE);
 

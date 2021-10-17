@@ -15,7 +15,7 @@ class GUI {
 
     public void renderInterface() {
         final JFrame frame = new JFrame("Recipe Book");
-        frame.setSize(1152, 782);
+        frame.setSize(1172, 782);
         frame.getContentPane().setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -67,6 +67,7 @@ class GUI {
 
         headerGbc.anchor = GridBagConstraints.WEST;
         headerGbc.gridy++;
+        headerGbc.fill = GridBagConstraints.HORIZONTAL;
         header.add(tabs, headerGbc);
 
         gbc.anchor = GridBagConstraints.NORTH;
