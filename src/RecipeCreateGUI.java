@@ -238,7 +238,11 @@ class MultiLineListEntry extends JPanel {
 		gridbc.weightx = 1;
 		gridbc.insets.left = 5;
 
-		minusButton = new JButton("-");
+		minusButton = new JButton(" - ");
+		minusButton.setBackground(Color.WHITE);
+		minusButton.setForeground(Color.BLACK);
+		minusButton.setFont(new Font("Roboto", Font.BOLD, 18));
+		minusButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		minusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				containingList.removeEntryAtIndex(indexInList);
@@ -250,7 +254,11 @@ class MultiLineListEntry extends JPanel {
 			gridbc.gridx++;
 		}
 
-		plusButton = new JButton("+");
+		plusButton = new JButton(" + ");
+		plusButton.setBackground(Color.WHITE);
+		plusButton.setForeground(Color.BLACK);
+		plusButton.setFont(new Font("Roboto", Font.BOLD, 18));
+		plusButton.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		plusButton.addActionListener( new ActionListener() { public void actionPerformed(ActionEvent e) { containingList.addEntryAtIndex(indexInList); } } );
 		this.add(plusButton, gridbc);
 	}
