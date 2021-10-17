@@ -9,21 +9,20 @@ import javax.swing.border.Border;
 
 public class RecipeCreateGUI extends JPanel {
 
-	private int numIngredients = 1;
-	private int numInstructions = 1;
-
-	public RecipeCreateGUI(RecipeBook recipes) {
+	public RecipeCreateGUI(RecipeBook recipeBook) {
 		setLayout(new GridBagLayout());
+		draw(recipeBook, false);
+	}
+
+	private void draw(RecipeBook recipeBook, boolean recipeSavedSuccessfully)
+	{
 		GridBagConstraints gridbc = new GridBagConstraints();
+		Border compound = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 2),
+				BorderFactory.createEmptyBorder(5, 15, 0, 0));
 
 		gridbc.gridx = gridbc.gridy = 0;
-        gridbc.weightx = gridbc.weighty = 1;
-
+		gridbc.weightx = gridbc.weighty = 1;
 		JLabel recipeName = new JLabel("Recipe Name");
-		HintTextArea recipeInput = new HintTextArea("Add Recipe Name");
-		
-		Border compound = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 2), BorderFactory.createEmptyBorder(5, 15, 0, 0));
-
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
 		recipeName.setPreferredSize(new Dimension(200,30));
 		recipeName.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -31,6 +30,7 @@ public class RecipeCreateGUI extends JPanel {
 
 		gridbc.gridx++;
 		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		HintTextArea recipeInput = new HintTextArea("Add Recipe Name");
 		recipeInput.setBorder(compound);
 		recipeInput.setPreferredSize(new Dimension(850,30));
 		recipeInput.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -39,16 +39,14 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.gridx--;
 		gridbc.gridy++;
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
-
 		JLabel description = new JLabel("Description");
-		HintTextArea descriptionInput = new HintTextArea("Add a description of your recipe");
-		
 		description.setPreferredSize(new Dimension(200,30));
 		description.setFont(new Font("Roboto", Font.BOLD, 16));
 		add(description, gridbc);
 
 		gridbc.gridx++;
 		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		HintTextArea descriptionInput = new HintTextArea("Add a description of your recipe");
 		descriptionInput.setBorder(compound);
 		descriptionInput.setPreferredSize(new Dimension(850,30));
 		descriptionInput.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -57,25 +55,20 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.gridx--;
 		gridbc.gridy++;
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
-
 		JLabel ingredient = new JLabel("Ingredient List");
-		MultiLineList ingredientInput = new MultiLineList("Add an ingredient");
-		
 		ingredient.setPreferredSize(new Dimension(200,30));
 		ingredient.setFont(new Font("Roboto", Font.BOLD, 16));
 		add(ingredient, gridbc);
 
 		gridbc.gridx++;
 		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		MultiLineList ingredientInput = new MultiLineList("Add an ingredient");
 		add(ingredientInput, gridbc);
 
 		gridbc.gridx--;
 		gridbc.gridy++;
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
-
 		JTextArea steps = new JTextArea("Step-by-step Instructions");
-		MultiLineList stepsInput = new MultiLineList("Add an instruction");
-		
 		steps.setPreferredSize(new Dimension(200,50));
 		steps.setFont(new Font("Roboto", Font.BOLD, 16));
 		steps.setWrapStyleWord(true);
@@ -86,20 +79,68 @@ public class RecipeCreateGUI extends JPanel {
 
 		gridbc.gridx++;
 		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		MultiLineList stepsInput = new MultiLineList("Add an instruction");
 		add(stepsInput, gridbc);
 
+
+		gridbc.gridx--;
 		gridbc.gridy++;
+		gridbc.anchor = GridBagConstraints.NORTHEAST;
+		JTextArea recipeSavedNotification = new JTextArea("Recipe saved!");
+		recipeSavedNotification.setPreferredSize(new Dimension(200, 50));
+		recipeSavedNotification.setFont(new Font("Roboto", Font.BOLD, 16));
+		recipeSavedNotification.setForeground(Color.GREEN);
+		recipeSavedNotification.setWrapStyleWord(true);
+		recipeSavedNotification.setLineWrap(true);
+		recipeSavedNotification.setEditable(false);
+		recipeSavedNotification.setFocusable(false);
+		if (recipeSavedSuccessfully){
+			add(recipeSavedNotification, gridbc);
+		}
+
+		gridbc.gridx++;
+		gridbc.anchor = GridBagConstraints.NORTHEAST;
 		JButton saveButton = new JButton("Save Recipe");
 		saveButton.setPreferredSize(new Dimension(180,40));
-        saveButton.setBorderPainted(false);
-        saveButton.setOpaque(true);
-        saveButton.setBackground(Color.BLACK);
-        saveButton.setForeground(Color.WHITE);
+		saveButton.setBorderPainted(false);
+		saveButton.setOpaque(true);
+		saveButton.setBackground(Color.BLACK);
+		saveButton.setForeground(Color.WHITE);
 		saveButton.setFont(new Font("Roboto", Font.BOLD, 18));
 		add(saveButton, gridbc);
-
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveRecipe(recipeInput, descriptionInput, ingredientInput, stepsInput, recipeBook);
+			}
+		});
 	}
 
+
+	private void saveRecipe(HintTextArea nameInput, HintTextArea descriptionInput, MultiLineList ingredientsInput,
+							MultiLineList stepsInput, RecipeBook recipeBook)
+	{
+		String name = nameInput.getText();
+		String description = descriptionInput.getText();
+		ArrayList<String> ingredients = ingredientsInput.toArrayList();
+		ArrayList<String> steps = stepsInput.toArrayList();
+		if (name != "" && description != "" && ingredients.size() != 0 && steps.size() != 0)
+		{
+			Recipe newRecipe = new Recipe(name, description, ingredients, steps);
+			recipeBook.addRecipe(newRecipe);
+			newRecipe.SaveToJSON();
+			redraw(recipeBook, true);
+		}
+
+		// Add a message that it was successfully added?
+	}
+
+	public void redraw(RecipeBook recipeBook, boolean recipeSavedSuccessfully)
+	{
+		removeAll();
+		draw(recipeBook, recipeSavedSuccessfully);
+		revalidate();
+		repaint();
+	}
 }
 
 class MultiLineList extends JPanel {
@@ -149,6 +190,16 @@ class MultiLineList extends JPanel {
 	{
 		listEntries.remove(indexToRemove);
 		redrawList();
+	}
+
+	public ArrayList<String> toArrayList()
+	{
+		ArrayList<String> stringArrayList = new ArrayList<String>();
+		for (int i = 0; i < listEntries.size(); i++)
+		{
+			stringArrayList.add(listEntries.get(i).getText());
+		}
+		return stringArrayList;
 	}
 }
 
@@ -202,6 +253,11 @@ class MultiLineListEntry extends JPanel {
 		plusButton = new JButton("+");
 		plusButton.addActionListener( new ActionListener() { public void actionPerformed(ActionEvent e) { containingList.addEntryAtIndex(indexInList); } } );
 		this.add(plusButton, gridbc);
+	}
+
+	public String getText()
+	{
+		return textArea.getText();
 	}
 }
 

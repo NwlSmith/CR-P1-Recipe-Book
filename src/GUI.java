@@ -75,7 +75,7 @@ class GUI {
         paintButton(null, new JButton[] { create_recipe, view_all, search_recipe });
 
         final JPanel createRecipes = new RecipeCreateGUI(recipes);
-        final JPanel viewAllRecipes = new RecipeViewAll(recipes);
+        final RecipeViewAll viewAllRecipes = new RecipeViewAll(recipes);
         final JPanel searchRecipes = new RecipeSearchGUI(recipes);
 
         createRecipes.setPreferredSize(new Dimension(1050, 500));
@@ -107,6 +107,7 @@ class GUI {
                 mainPanel.remove(createRecipes);
                 mainPanel.remove(searchRecipes);
                 mainPanel.add(viewAllRecipes, gbc);
+                viewAllRecipes.redraw();
                 mainPanel.revalidate();
                 mainPanel.repaint();
             }
