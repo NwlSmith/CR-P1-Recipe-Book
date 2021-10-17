@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.border.Border;
 
 public class RecipeCreateGUI extends JPanel {
@@ -12,7 +14,7 @@ public class RecipeCreateGUI extends JPanel {
         gridbc.weightx = gridbc.weighty = 1;
 
 		JLabel recipeName = new JLabel("Recipe Name");
-		JTextArea recipeInput = new JTextArea("Add Recipe Name");
+		HintTextArea recipeInput = new HintTextArea("Add Recipe Name");
 		
 		Border compound = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 2), BorderFactory.createEmptyBorder(5, 15, 0, 0));
 
@@ -33,7 +35,7 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
 
 		JLabel description = new JLabel("Description");
-		JTextArea descriptionInput = new JTextArea("Add a description of your recipe");
+		HintTextArea descriptionInput = new HintTextArea("Add a description of your recipe");
 		
 		description.setPreferredSize(new Dimension(200,30));
 		description.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -51,7 +53,7 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
 
 		JLabel ingredient = new JLabel("Ingredient List");
-		JTextArea ingredientInput = new JTextArea("Add a list of comma-separated ingredients");
+		HintTextArea ingredientInput = new HintTextArea("Add a list of comma-separated ingredients");
 		
 		ingredient.setPreferredSize(new Dimension(200,30));
 		ingredient.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -69,7 +71,7 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
 
 		JTextArea steps = new JTextArea("Step-by-step Instructions");
-		JTextArea stepsInput = new JTextArea("Add a list of line-separated instructions");
+		HintTextArea stepsInput = new HintTextArea("Add a list of line-separated instructions");
 		
 		steps.setPreferredSize(new Dimension(200,50));
 		steps.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -98,4 +100,45 @@ public class RecipeCreateGUI extends JPanel {
 
 	}
 
+}
+
+class HintTextArea extends JTextArea implements FocusListener {
+
+	private final String hint;
+	private boolean showingHint;
+
+	public HintTextArea(final String hint) {
+		super(hint);
+		this.hint = hint;
+		this.showingHint = true;
+		this.setFont(new Font("Roboto", Font.PLAIN, 14));
+		this.setForeground(Color.gray);
+		super.addFocusListener(this);
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		if(this.getText().isEmpty()) {
+			super.setText("");
+			showingHint = false;
+			this.setForeground(Color.BLACK);
+		}
+	}
+	@Override
+	public void focusLost(FocusEvent e) {
+		if(this.getText().isEmpty()) {
+			super.setText(hint);
+			showingHint = true;
+			this.setForeground(Color.gray);
+		}
+		else
+		{
+			this.setForeground(Color.BLACK);
+		}
+	}
+
+	@Override
+	public String getText() {
+		return showingHint ? "" : super.getText();
+	}
 }
