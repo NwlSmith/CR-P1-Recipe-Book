@@ -1,10 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 import javax.swing.border.Border;
 
 public class RecipeCreateGUI extends JPanel {
+
+	private int numIngredients = 1;
+	private int numInstructions = 1;
 
 	public RecipeCreateGUI(RecipeBook recipes) {
 		setLayout(new GridBagLayout());
@@ -53,7 +59,7 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
 
 		JLabel ingredient = new JLabel("Ingredient List");
-		HintTextArea ingredientInput = new HintTextArea("Add a list of comma-separated ingredients");
+		MultiLineList ingredientInput = new MultiLineList("Add an ingredient");
 		
 		ingredient.setPreferredSize(new Dimension(200,30));
 		ingredient.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -61,9 +67,6 @@ public class RecipeCreateGUI extends JPanel {
 
 		gridbc.gridx++;
 		gridbc.anchor = GridBagConstraints.NORTHEAST;
-		ingredientInput.setBorder(compound);
-		ingredientInput.setPreferredSize(new Dimension(850,80));
-		ingredientInput.setFont(new Font("Roboto", Font.PLAIN, 14));
 		add(ingredientInput, gridbc);
 
 		gridbc.gridx--;
@@ -71,7 +74,7 @@ public class RecipeCreateGUI extends JPanel {
 		gridbc.anchor = GridBagConstraints.NORTHWEST;
 
 		JTextArea steps = new JTextArea("Step-by-step Instructions");
-		HintTextArea stepsInput = new HintTextArea("Add a list of line-separated instructions");
+		MultiLineList stepsInput = new MultiLineList("Add an instruction");
 		
 		steps.setPreferredSize(new Dimension(200,50));
 		steps.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -83,9 +86,6 @@ public class RecipeCreateGUI extends JPanel {
 
 		gridbc.gridx++;
 		gridbc.anchor = GridBagConstraints.NORTHEAST;
-		stepsInput.setBorder(compound);
-		stepsInput.setPreferredSize(new Dimension(850,150));
-		stepsInput.setFont(new Font("Roboto", Font.PLAIN, 14));
 		add(stepsInput, gridbc);
 
 		gridbc.gridy++;
@@ -102,6 +102,109 @@ public class RecipeCreateGUI extends JPanel {
 
 }
 
+class MultiLineList extends JPanel {
+
+	private ArrayList<MultiLineListEntry> listEntries;
+	private String hintString;
+
+	public MultiLineList(final String newHintString)
+	{
+		this.setPreferredSize(new Dimension(850,40));
+		setBackground(Color.WHITE);
+		setLayout(new GridBagLayout());
+		hintString = newHintString;
+
+		listEntries = new ArrayList<MultiLineListEntry>();
+		listEntries.add(new MultiLineListEntry(hintString, 0, this));
+		redrawList();
+	}
+
+	private void redrawList()
+	{
+		this.removeAll();
+		GridBagConstraints gridbc = new GridBagConstraints();
+
+		gridbc.gridx = gridbc.gridy = 0;
+		gridbc.weightx = gridbc.weighty = 1;
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+
+		for (int i = 0; i < listEntries.size(); i++) {
+			this.add(listEntries.get(i), gridbc);
+			listEntries.get(i).indexInList = i;
+			gridbc.gridy++;
+		}
+
+		this.setPreferredSize(new Dimension(850,40 * listEntries.size()));
+		revalidate();
+		repaint();
+	}
+
+	public void addEntryAtIndex(final int indexToAddAt)
+	{
+		listEntries.add(indexToAddAt + 1, new MultiLineListEntry(hintString, indexToAddAt + 1, this));
+		redrawList();
+	}
+
+	public void removeEntryAtIndex(final int indexToRemove)
+	{
+		listEntries.remove(indexToRemove);
+		redrawList();
+	}
+}
+
+class MultiLineListEntry extends JPanel {
+
+	public int indexInList = 0;
+
+	private HintTextArea textArea;
+	private JButton minusButton;
+	private JButton plusButton;
+	private MultiLineList containingList;
+
+	public MultiLineListEntry(final String hint, final int index, final MultiLineList list)
+	{
+		super();
+		setLayout(new GridBagLayout());
+		this.indexInList = index;
+		this.containingList = list;
+		this.setPreferredSize(new Dimension(850,30));
+		this.setBackground(Color.WHITE);
+
+		GridBagConstraints gridbc = new GridBagConstraints();
+
+		gridbc.gridx = gridbc.gridy = 0;
+		gridbc.weightx = gridbc.weighty = 100;
+		gridbc.anchor = GridBagConstraints.NORTHWEST;
+		gridbc.fill = GridBagConstraints.HORIZONTAL;
+
+		textArea = new HintTextArea(hint);
+		textArea.setPreferredSize(new Dimension(850,30));
+		textArea.setFont(new Font("Roboto", Font.PLAIN, 14));
+		textArea.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 2),
+				BorderFactory.createEmptyBorder(5, 15, 0, 0)));
+		add(textArea, gridbc);
+		gridbc.gridx++;
+		gridbc.weightx = 1;
+		gridbc.insets.left = 5;
+
+		minusButton = new JButton("-");
+		minusButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				containingList.removeEntryAtIndex(indexInList);
+			}
+		});
+
+		if (indexInList > 0) {
+			this.add(minusButton, gridbc);
+			gridbc.gridx++;
+		}
+
+		plusButton = new JButton("+");
+		plusButton.addActionListener( new ActionListener() { public void actionPerformed(ActionEvent e) { containingList.addEntryAtIndex(indexInList); } } );
+		this.add(plusButton, gridbc);
+	}
+}
+
 class HintTextArea extends JTextArea implements FocusListener {
 
 	private final String hint;
@@ -111,7 +214,6 @@ class HintTextArea extends JTextArea implements FocusListener {
 		super(hint);
 		this.hint = hint;
 		this.showingHint = true;
-		this.setFont(new Font("Roboto", Font.PLAIN, 14));
 		this.setForeground(Color.gray);
 		super.addFocusListener(this);
 	}
