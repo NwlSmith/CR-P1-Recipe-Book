@@ -22,7 +22,7 @@ public class DetailsGUI {
 		frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		fullRecipeGUI = new RecipeSearchEntry(recipe, false);
+		fullRecipeGUI = new RecipeSearchEntry(recipe, false, true);
 		stepByStepGUI = new StepByStepGUI(recipe);
 	}
 	
