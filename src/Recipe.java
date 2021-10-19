@@ -28,6 +28,7 @@ public class Recipe {
     private String fileName;
     
     public Recipe(String name, String description, ArrayList<String> ingredients, ArrayList<String> steps) {
+        this.fileName = name;
     	this.name = name;
     	this.description = description;
     	this.ingredients = ingredients;

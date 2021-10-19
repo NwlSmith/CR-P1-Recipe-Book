@@ -15,7 +15,7 @@ class GUI {
 
     public void renderInterface() {
         final JFrame frame = new JFrame("Recipe Book");
-        frame.setSize(1152, 782);
+        frame.setSize(1172, 782);
         frame.getContentPane().setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -67,6 +67,7 @@ class GUI {
 
         headerGbc.anchor = GridBagConstraints.WEST;
         headerGbc.gridy++;
+        headerGbc.fill = GridBagConstraints.HORIZONTAL;
         header.add(tabs, headerGbc);
 
         gbc.anchor = GridBagConstraints.NORTH;
@@ -74,7 +75,7 @@ class GUI {
         paintButton(null, new JButton[] { create_recipe, view_all, search_recipe });
 
         final JPanel createRecipes = new RecipeCreateGUI(recipes);
-        final JPanel viewAllRecipes = new RecipeViewAll(recipes);
+        final RecipeViewAll viewAllRecipes = new RecipeViewAll(recipes);
         final JPanel searchRecipes = new RecipeSearchGUI(recipes);
 
         createRecipes.setPreferredSize(new Dimension(1050, 500));
@@ -87,6 +88,7 @@ class GUI {
 
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.VERTICAL;
 
         create_recipe.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +107,7 @@ class GUI {
                 mainPanel.remove(createRecipes);
                 mainPanel.remove(searchRecipes);
                 mainPanel.add(viewAllRecipes, gbc);
+                viewAllRecipes.redraw();
                 mainPanel.revalidate();
                 mainPanel.repaint();
             }
