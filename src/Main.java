@@ -22,8 +22,11 @@ public class Main {
                 System.out.println("Invalid interface type. Please add a valid argument 'gui' or 'cli'");
             }
         }
-        catch(Exception e) {
+        catch(ArrayIndexOutOfBoundsException e ) {
             System.err.println("No interface choice provided. Try again.");
+        }
+        catch(Exception e) {
+            System.err.println("\nSomething went wrong ¯\\_(ツ)_/¯\n");
         }
     }
 
